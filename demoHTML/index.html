@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+</head>
+<body>
+    <script>
+        function sayHi(){
+            const name = document.getElementById("name").value
+            const country = document.getElementById("country").value
+            let gender = ""
+            const male = document.getElementById("male")
+            const female = document.getElementById("female")
+            if(male.checked)
+                gender = "Male"
+            else if(female.checked)
+                gender = "Female"
+            else
+                gender = " Nothing selected!"
+            const result = 'Hello ' + name + " " + country + " " + gender
+            document.getElementById("status").innerHTML = result
+        }
+    </script>
+    <input type="text" id="name" placeholder="Enter your name">
+    <br>
+    <select id="country">
+        <option value="VN">VN</option>
+        <option value="CN">CN</option>
+    </select>
+    <br>
+    Male<input type="checkbox" value="Male" id="male">
+    Female<input type="checkbox" value="Female" id="female">
+    <br>
+    <input type="submit" value="Ok" onclick="sayHi()">
+    <h1 id="status" style="color:red"></h1>
+</body>
