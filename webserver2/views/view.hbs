@@ -14,21 +14,30 @@
 
 <body>
     <h1>View all</h1>
+    <form action="/search" method="post">
+        <input type="text" name="txtName" placeholder="Enter name" size="30">
+        <input type="submit" value="Search">
+    </form>
+    <a href="/" style="margin: 10px;">Back to index</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Country</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         {{#each ds}}
         <tr>
             <td>{{name}}</td>
             {{#if country}}
-                <td>{{country}}</td>
+            <td>{{country}}</td>
             {{else}}
-                <td style="color:red ;">Not Available</td>
+            <td style="color:red ;">Not Available</td>
             {{/if}}
+            <td><a href="/edit?id={{id}}">Edit</a></td>
+            <td><a href="/delete?id={{id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
         </tr>
         {{/each}}
     </table>

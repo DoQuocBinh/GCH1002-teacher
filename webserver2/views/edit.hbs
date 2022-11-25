@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+</head>
+
+<body>
+    <form action="/edit" method="post">
+        <input type="hidden" name="id" value="{{emp.id}}">
+        Name <input type="text" name="txtName" value="{{emp.name}}">
+        <br>
+        Country
+        <select id="country" name="country" value="{{emp.country}}">
+            <option value="Vietnam">Vietnam</option>
+            <option value="Singapore">Singapore</option>
+        </select>
+        <br>
+        <input type="submit" value="Update">
+    </form>
+    <script>
+        document.getElementById("country").value = '{{emp.country}}'
+    </script>
+</body>
+
+</html>
