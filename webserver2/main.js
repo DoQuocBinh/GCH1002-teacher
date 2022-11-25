@@ -2,6 +2,15 @@ var express = require('express')
 var app = express()
 const crypto = require("crypto")
 var fs = require('fs')
+const { handlebars } = require('hbs')
+
+handlebars.registerHelper('xinChao',function(param){
+    return 'Xin chao ' +  param;
+})
+
+handlebars.registerHelper('checkCountryVN',function(country){
+    return country == 'Vietnam'
+})
 
 
 app.set('view engine','hbs')
