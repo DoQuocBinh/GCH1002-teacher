@@ -7,6 +7,13 @@
     <title>Home page</title>
 </head>
 <body>
+    {{#list cars}}
+        {{this}}
+    {{/list}}
+    <hr>
+    {{#list ds}}
+        {{name}} - {{country}}
+    {{/list}}
     <h1 style="color: green;">Home page</h1>
     <ul>
         <li><a href="/new">New Employee</a></li>

@@ -30,7 +30,11 @@
             </tr>
         </thead>
         {{#each ds}}
-        <tr>
+            {{#if (checkOdd @index)}}
+                <tr style="background-color:rgb(202, 171, 171)">
+            {{else}}
+                <tr>
+            {{/if}}
             <th>{{@index}}</th>
             <td>{{xinChao name}}</td>
             {{#if (checkCountryVN country)}}

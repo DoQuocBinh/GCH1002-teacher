@@ -12,6 +12,14 @@ handlebars.registerHelper('checkCountryVN',function(country){
     return country == 'Vietnam'
 })
 
+handlebars.registerHelper('checkOdd',function(number){
+    return number %2 ==1
+})
+
+handlebars.registerHelper("list", function(items, options) {
+    const itemsAsHtml = items.map(item => "<li>" + options.fn(item) + "</li>");
+    return "<ul>\n" + itemsAsHtml.join("\n") + "\n</ul>";
+});
 
 app.set('view engine','hbs')
 app.use(express.urlencoded({extended:true}))
@@ -83,14 +91,17 @@ app.post('/new',(req,res)=>{
     res.redirect('/')
 
 })
+
 app.get('/',(req,res)=>{
-    res.render('home')
+    const cars  = ["volvo","toyota","vinfast"]
+    var employeeList = []
+    readDataFile(employeeList)
+    res.render('home',{'cars':cars,'ds':employeeList})
 })
 
 app.get('/new',(req,res)=>{
     res.render('new')
 })
-
 const PORT = 3000
 app.listen(PORT)
 console.log("Server is running!")
