@@ -8,12 +8,17 @@
 </head>
 <body>
     <h1>All Products</h1>
+    <form action="/search" method="post">
+    <input type="text" placeholder="Name to search" name="txtName">
+    <input type="submit" value="Search">
+    </form>
     <ul>
         {{#each results}}
             <li>{{name}}
                 <br>
                 <img src="{{picture}}" alt="" width="150" height="100">
                 <a href="/delete?id={{_id}}" onclick="return confirm('are you mad?')">Delete</a>
+                <a href="/edit?id={{_id}}" style="color: orange;">Edit</a>
             </li>
         {{/each}}
     </ul>

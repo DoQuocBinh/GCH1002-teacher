@@ -1,26 +1,40 @@
-const { ObjectId } = require('bson')
 var expesss = require('express')
+const { insertNewProduct,getAllProducts,
+    updateProduct,findProductById,deleteProductById,findProductByName } = require('./databaseHandler')
 var app = expesss()
-
-var mongoClient = require('mongodb').MongoClient
-var url = 'mongodb://0.0.0.0:27017'
 
 app.set('view engine','hbs')
 app.use(expesss.urlencoded({extended:true}))
 
+app.post('/search',async (req,res)=>{
+    const searchName = req.body.txtName
+    const searchResult = await findProductByName(searchName)
+    res.render('allProduct',{results:searchResult})
+})
+
+app.post('/edit',async(req,res)=>{
+    const id = req.body.id
+    const name = req.body.txtName
+    const price = req.body.txtPrice
+    const picUrl = req.body.txtPic
+    await updateProduct(id, name, price, picUrl)
+    res.redirect('/')
+})
+
+app.get('/edit',async(req,res)=>{
+    const id = req.query.id
+    const productToEdit = await findProductById(id)
+    res.render("edit",{product:productToEdit})
+})
+
 app.get('/delete',async (req,res)=>{
     const id = req.query.id
-    let client = await mongoClient.connect(url)
-    let db = client.db("GCH1002")
-    await db.collection("products").deleteOne({_id:ObjectId(id)})
+    await deleteProductById(id)
     res.redirect('/all')
 })
 
 app.get('/all',async (req,res)=>{
-    let client = await mongoClient.connect(url)
-    let db = client.db("GCH1002")
-    let results = await db.collection("products").find().toArray()
-    console.log(results)
+    let results = await getAllProducts()
     res.render('allProduct',{results:results})
 })
 
@@ -33,18 +47,13 @@ app.post('/new',async (req,res)=>{
         price: Number.parseFloat(price),
         picture: picUrl
     }
-    let client = await mongoClient.connect(url)
-    let db = client.db("GCH1002")
-    let id = await db.collection("products").insertOne(newProduct)
-    console.log(id)
+    await insertNewProduct(newProduct)
     res.render('home')
 
 })
-
 app.get('/new',(req,res)=>{
     res.render('newProduct')
 })
-
 app.get('/',(req,res)=>{
     res.render('home')
 })
@@ -52,4 +61,5 @@ app.get('/',(req,res)=>{
 const PORT = process.env.PORT || 3000
 app.listen(PORT)
 console.log("Server is running!")
+
 
